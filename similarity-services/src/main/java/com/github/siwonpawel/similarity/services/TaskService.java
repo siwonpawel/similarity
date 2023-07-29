@@ -5,7 +5,9 @@ import com.github.siwonpawel.similarity.mappers.TaskMapper;
 import com.github.siwonpawel.similarity.model.TaskDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 @RequiredArgsConstructor
 public class TaskService {
 

@@ -6,9 +6,9 @@ plugins {
 }
 
 dependencies {
-    runtimeOnly libs.postgresql
-
     implementation libs.springBootDataJpa
+
+    testRuntimeOnly libs.postgresql
 
     testImplementation libs.springBootTest
     testImplementation libs.springBootTestcontainers

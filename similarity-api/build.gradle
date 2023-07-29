@@ -1,0 +1,16 @@
+plugins {
+    id 'similarity.java-conventions'
+
+    alias libs.plugins.springBoot
+    alias libs.plugins.springBootDependencyManagement
+}
+
+dependencies {
+    implementation project(':similarity-services')
+    implementation project(':similarity-model')
+    implementation project(':similarity-data')
+
+    runtimeOnly libs.postgresql
+
+    implementation libs.springBootWeb
+}
