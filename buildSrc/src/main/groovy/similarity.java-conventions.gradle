@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+
+    id 'io.spring.dependency-management'
+}
+
+group = 'com.github.siwonpawel.similarity'
+version = '0.0.1-SNAPSHOT'
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
