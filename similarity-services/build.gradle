@@ -1,0 +1,20 @@
+plugins {
+    id 'similarity.java-conventions'
+    id 'similarity.dependency-conventions'
+
+    alias libs.plugins.springBootDependencyManagement
+}
+
+dependencies {
+    implementation project(':similarity-data')
+    implementation project(':similarity-model')
+
+    implementation libs.springBootStarter
+    implementation libs.springBootDataJpa
+
+    testImplementation libs.springBootTest
+}
+
+test {
+    useJUnitPlatform()
+}

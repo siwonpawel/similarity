@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class Task {
+public class TaskDto {
 
     private String id;
 
@@ -13,7 +13,9 @@ public class Task {
     private String pattern;
 
     private LocalDateTime createdAt;
-    private TaskStatus taskStatus;
+    private LocalDateTime modifiedAt;
+    private TaskStatus status;
+    private Integer progress;
 
     private TaskResult result;
 }

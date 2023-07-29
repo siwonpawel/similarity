@@ -2,3 +2,4 @@ rootProject.name = 'similarity'
 
 include 'similarity-data'
 include 'similarity-model'
+include 'similarity-services'
