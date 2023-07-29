@@ -1,20 +1,24 @@
 plugins {
     id 'java'
-
-    id 'io.spring.dependency-management'
 }
 
 group = 'com.github.siwonpawel.similarity'
 version = '0.0.1-SNAPSHOT'
 
-dependencyManagement {
-    imports {
-        mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
-    }
+dependencies {
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+
+    implementation 'org.projectlombok:lombok:1.18.+'
+    annotationProcessor 'org.projectlombok:lombok:1.18.+'
 }
 
 repositories {
     mavenCentral()
+}
+
+test {
+    useJUnitPlatform()
 }
 
 java {

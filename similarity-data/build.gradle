@@ -1,0 +1,17 @@
+plugins {
+    id 'similarity.java-conventions'
+    id 'similarity.dependency-conventions'
+
+    alias libs.plugins.springBootDependencyManagement
+}
+
+dependencies {
+    runtimeOnly libs.postgresql
+
+    implementation libs.springBootDataJpa
+
+    testImplementation libs.springBootTest
+    testImplementation libs.springBootTestcontainers
+    testImplementation libs.testcontainersPostgreSQL
+    testImplementation libs.testcontainersJunitJupiter
+}

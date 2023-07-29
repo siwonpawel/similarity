@@ -1,1 +1,3 @@
 rootProject.name = 'similarity'
+
+include 'similarity-data'

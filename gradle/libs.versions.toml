@@ -3,9 +3,17 @@ springBootVersion = '3.1.2' # included in gradle.properties too, toml is unable 
 springBootDependencyManagementVersion = '1.1.2'
 
 [libraries]
-springBootWeb = {group = 'org.springframework.boot', name = 'spring-boot-starter-web'}
-springBootDataJpa = {group = 'org.springframework.boot', name = 'spring-boot-starter-data-jpa'}
+postgresql = { module = 'org.postgresql:postgresql', version = '42.5.0' }
+
+springBootWeb = { group = 'org.springframework.boot', name = 'spring-boot-starter-web' }
+springBootDataJpa = { group = 'org.springframework.boot', name = 'spring-boot-starter-data-jpa' }
+
+# test dependencies
+springBootTest = { group = 'org.springframework.boot', name = 'spring-boot-starter-test' }
+springBootTestcontainers = { group = 'org.springframework.boot', name = 'spring-boot-testcontainers' }
+testcontainersJunitJupiter = { group = 'org.testcontainers', name = 'junit-jupiter' }
+testcontainersPostgreSQL = { group = 'org.testcontainers', name = 'postgresql' }
 
 [plugins]
-springBoot = {id = 'org.springframework.boot', version.ref = 'springBootVersion' }
-springBootDependencyManagement = {id = 'io.spring.dependency-management', version.ref = 'springBootDependencyManagementVersion' }
+springBoot = { id = 'org.springframework.boot', version.ref = 'springBootVersion' }
+springBootDependencyManagement = { id = 'io.spring.dependency-management', version.ref = 'springBootDependencyManagementVersion' }
