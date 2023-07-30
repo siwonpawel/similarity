@@ -12,7 +12,7 @@ import org.mapstruct.factory.Mappers;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
@@ -59,8 +59,8 @@ class TaskServiceTest {
         UUID id = UUID.randomUUID();
         String input = "input";
         String pattern = "pattern";
-        LocalDateTime modifiedAt = LocalDateTime.now();
-        LocalDateTime createdAt = modifiedAt.minus(10, ChronoUnit.MINUTES);
+        OffsetDateTime modifiedAt = OffsetDateTime.now();
+        OffsetDateTime createdAt = modifiedAt.minus(10, ChronoUnit.MINUTES);
         TaskStatus status = TaskStatus.IN_PROGRESS;
         int progress = 99;
         int matches = 10;
@@ -104,8 +104,8 @@ class TaskServiceTest {
         UUID id = UUID.randomUUID();
         String input = "input";
         String pattern = "pattern";
-        LocalDateTime modifiedAt = LocalDateTime.now();
-        LocalDateTime createdAt = modifiedAt.minus(10, ChronoUnit.MINUTES);
+        OffsetDateTime modifiedAt = OffsetDateTime.now();
+        OffsetDateTime createdAt = modifiedAt.minus(10, ChronoUnit.MINUTES);
         com.github.siwonpawel.similarity.data.model.TaskStatus status = com.github.siwonpawel.similarity.data.model.TaskStatus.IN_PROGRESS;
         int progress = 99;
         int matches = 10;

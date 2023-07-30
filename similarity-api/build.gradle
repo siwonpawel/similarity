@@ -6,6 +6,7 @@ plugins {
 }
 
 dependencies {
+    implementation project(':similarity-api-spec')
     implementation project(':similarity-services')
     implementation project(':similarity-model')
     implementation project(':similarity-data')

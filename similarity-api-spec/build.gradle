@@ -43,6 +43,12 @@ openApiGenerate {
     ])
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
 sourceSets {
     main {
         java {
@@ -53,4 +59,5 @@ sourceSets {
 
 compileJava {
     dependsOn tasks.openApiGenerate
+    compileJava
 }

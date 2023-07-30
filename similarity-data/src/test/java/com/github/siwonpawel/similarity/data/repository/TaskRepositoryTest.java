@@ -12,7 +12,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -55,7 +55,7 @@ class TaskRepositoryTest {
 
         // then
         assertThat(result.getCreatedAt())
-                .isCloseTo(LocalDateTime.now(), within(500, ChronoUnit.MILLIS));
+                .isCloseTo(OffsetDateTime.now(), within(500, ChronoUnit.MILLIS));
     }
 
     @Test
@@ -69,7 +69,7 @@ class TaskRepositoryTest {
 
         // then
         assertThat(result.getModifiedAt())
-                .isCloseTo(LocalDateTime.now(), within(500, ChronoUnit.MILLIS));
+                .isCloseTo(OffsetDateTime.now(), within(500, ChronoUnit.MILLIS));
     }
 
     @Test

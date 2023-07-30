@@ -2,7 +2,7 @@ package com.github.siwonpawel.similarity.model;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Data
 public class TaskDto {
@@ -12,8 +12,8 @@ public class TaskDto {
     private String input;
     private String pattern;
 
-    private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
+    private OffsetDateTime createdAt;
+    private OffsetDateTime modifiedAt;
     private TaskStatus status;
     private Integer progress;
 

@@ -5,7 +5,7 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Data
@@ -20,9 +20,9 @@ public class Task {
     private String pattern;
 
     @CreationTimestamp
-    private LocalDateTime createdAt;
+    private OffsetDateTime createdAt;
     @UpdateTimestamp
-    private LocalDateTime modifiedAt;
+    private OffsetDateTime modifiedAt;
 
     @Enumerated(EnumType.STRING)
     private TaskStatus status = TaskStatus.SCHEDULED;
