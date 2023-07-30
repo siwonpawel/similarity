@@ -108,8 +108,15 @@ components:
           $ref: '#/components/schemas/Pattern'
     TaskCreated:
       type: object
-      allOf:
-        - $ref: '#/components/schemas/SimpleTask'
+      properties:
+        id:
+          $ref: '#/components/schemas/TaskId'
+        input:
+          $ref: '#/components/schemas/Input'
+        pattern:
+          $ref: '#/components/schemas/Pattern'
+        createdAt:
+          $ref: '#/components/schemas/CreatedAt'
     TaskPage:
       type: object
       properties:
