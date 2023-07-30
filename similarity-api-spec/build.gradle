@@ -1,24 +1,27 @@
 plugins {
-    id 'java'
+    id 'java-library'
 
-    id 'similarity.dependency-conventions'
-    alias libs.plugins.springBootDependencyManagement
+    id 'org.openapi.generator' version '6.6.0'
+}
 
-    id 'org.openapi.generator' version '5.2.1'
+repositories {
+    mavenCentral()
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation:3.1.2'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
 
-    implementation "io.springfox:springfox-boot-starter:3.0.0"
+    implementation 'org.openapitools:jackson-databind-nullable:0.2.4'
+
+    implementation 'jakarta.annotation:jakarta.annotation-api:2.1.1'
 }
 
 openApiGenerate {
     generatorName = "spring"
 
     inputSpec = "$projectDir/src/main/resources/api-v1.yaml"
-    outputDir = "$buildDir/generated/sources/openApiGenerator"
+    outputDir = "$buildDir/generated"
 
     apiPackage = "com.github.siwonpawel.similarity.api.v1"
     modelPackage = "com.github.siwonpawel.similarity.api.v1.model"
@@ -26,14 +29,12 @@ openApiGenerate {
     generateApiTests = false
     generateModelTests = false
 
-
     configOptions.set([
             useSpringBoot3       : "true",
             interfaceOnly        : "true",
             performBeanValidation: "true",
             skipDefaultInterface : "true",
-            useJakartaEe         : "true",
-            sourceFolder         : "",
+            useTags              : "true",
     ])
 
     globalProperties.set([
@@ -42,13 +43,14 @@ openApiGenerate {
     ])
 }
 
-compileJava.dependsOn tasks.openApiGenerate
-processResources.dependsOn tasks.openApiGenerate
-
 sourceSets {
     main {
         java {
-            srcDirs = ["$buildDir/generated/sources/openApiGenerator/src/main/java"]
+            srcDir "$buildDir/generated/src/main/java"
         }
     }
+}
+
+compileJava {
+    dependsOn tasks.openApiGenerate
 }
