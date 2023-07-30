@@ -1,0 +1,233 @@
+openapi: 3.0.3
+info:
+  title: Task processing APP
+  description: Simple application for asynchronous task processing.
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+
+paths:
+  /v1/tasks:
+    post:
+      requestBody:
+        $ref: '#/components/requestBodies/NewTaskRequest'
+      responses:
+        201:
+          $ref: '#/components/responses/TaskCreatedResponse'
+    get:
+      parameters:
+        - $ref: '#/components/parameters/PageQueryParam'
+        - $ref: '#/components/parameters/PageSizeQueryParam'
+      responses:
+        200:
+          $ref: '#/components/responses/TaskPageResponse'
+  /v1/tasks/{taskId}:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/TaskIdPathParam'
+      responses:
+        200:
+          $ref: '#/components/responses/TaskResponse'
+        404:
+          $ref: '#/components/responses/ErrorResponse'
+
+
+
+
+components:
+
+  parameters:
+    PageQueryParam:
+      in: query
+      name: page
+      schema:
+        $ref: '#/components/schemas/Page'
+    PageSizeQueryParam:
+      in: query
+      name: pageSize
+      schema:
+        $ref: '#/components/schemas/PageSize'
+    TaskIdPathParam:
+      in: path
+      name: taskId
+      schema:
+        $ref: '#/components/schemas/TaskId'
+
+  requestBodies:
+    NewTaskRequest:
+      description: Create new task request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              input:
+                $ref: '#/components/schemas/Input'
+              pattern:
+                $ref: '#/components/schemas/Pattern'
+
+  responses:
+    TaskCreatedResponse:
+      description: Task created response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TaskCreated'
+    TaskResponse:
+      description: Task response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Task'
+
+    TaskPageResponse:
+      description: Task page response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TaskPage'
+    ErrorResponse:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+
+  schemas:
+    TaskCreated:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/SimpleTask'
+    TaskPage:
+      type: object
+      properties:
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/SimpleTask'
+        page:
+          $ref: '#/components/schemas/Page'
+        pageSize:
+          $ref: '#/components/schemas/PageSize'
+        count:
+          $ref: '#/components/schemas/Count'
+
+    Task:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/TaskId'
+        input:
+          $ref: '#/components/schemas/Input'
+        pattern:
+          $ref: '#/components/schemas/Pattern'
+        status:
+          $ref: '#/components/schemas/Status'
+        createdAt:
+          $ref: '#/components/schemas/CreatedAt'
+        modifiedAt:
+          $ref: '#/components/schemas/ModifiedAt'
+        result:
+          $ref: '#/components/schemas/TaskResult'
+    SimpleTask:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/TaskId'
+        input:
+          $ref: '#/components/schemas/Input'
+        pattern:
+          $ref: '#/components/schemas/Pattern'
+        status:
+          $ref: '#/components/schemas/Status'
+        createdAt:
+          $ref: '#/components/schemas/CreatedAt'
+        modifiedAt:
+          $ref: '#/components/schemas/ModifiedAt'
+    TaskId:
+      type: string
+      description: ID of the task
+      example: ba6db0eb-4613-45fb-812c-5561d1648a15
+    Input:
+      type: string
+      description: Input data that will be searched
+      example: AABABC
+    Pattern:
+      type: string
+      description: Pattern that will be looked for
+      example: ABC
+    CreatedAt:
+      type: string
+      format: date-time
+      description: Creation time of the task
+      example: 2017-07-21T17:32:28Z
+    ModifiedAt:
+      type: string
+      format: date-time
+      description: Last modification time of the task
+      example: 2017-07-21T17:32:28Z
+    Status:
+      type: string
+      description: |
+        Status of the task. Possible statuses:
+        
+        * SCHEDULED - task was created and persisted in database, processing have not started yet
+        * IN_PROGRESS - processing of the task started, not finished yet
+        * FINISHED - processing of the task finished without any errors
+        * CANCELLED - processing of the task was cancelled, finished gracefully without occurring errors
+        * FAILED - processing of the task failed because of errors
+      example: FINISHED
+    TaskResult:
+      type: object
+      properties:
+        position:
+          $ref: '#/components/schemas/Position'
+        matches:
+          $ref: '#/components/schemas/Matches'
+
+    ApiError:
+      type: object
+      properties:
+        path:
+          type: string
+          description: URL path under witch the error occurred
+          example: /tasks/ba6db0eb-4613-45fb-812c-5561d1648a15
+        message:
+          type: string
+          description: Details of the error
+          example: Task with ID [ba6db0eb-4613-45fb-812c-5561d1648a15] was not found
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp of the error
+          example: 2017-07-21T17:32:28Z
+
+    Position:
+      type: integer
+      format: int32
+      example: 0
+    Matches:
+      type: integer
+      format: int32
+      example: 11
+
+    Page:
+      type: integer
+      format: int32
+      description: Page number
+      default: 0
+      minimum: 0
+      example: 0
+    PageSize:
+      type: integer
+      format: int32
+      description: Page size
+      default: 10
+      minimum: 1
+      maximum: 100
+      example: 10
+    Count:
+      type: integer
+      format: int32
+      description: Number of all elements
+      example: 109
