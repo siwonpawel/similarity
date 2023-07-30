@@ -6,15 +6,21 @@ info:
 servers:
   - url: 'http://localhost:8080'
 
+tags:
+  - name: tasks
 paths:
   /v1/tasks:
     post:
+      tags:
+        - tasks
       requestBody:
         $ref: '#/components/requestBodies/NewTaskRequest'
       responses:
         201:
           $ref: '#/components/responses/TaskCreatedResponse'
     get:
+      tags:
+        - tasks
       parameters:
         - $ref: '#/components/parameters/PageQueryParam'
         - $ref: '#/components/parameters/PageSizeQueryParam'
@@ -23,6 +29,8 @@ paths:
           $ref: '#/components/responses/TaskPageResponse'
   /v1/tasks/{taskId}:
     get:
+      tags:
+        - tasks
       parameters:
         - $ref: '#/components/parameters/TaskIdPathParam'
       responses:
@@ -50,6 +58,7 @@ components:
     TaskIdPathParam:
       in: path
       name: taskId
+      required: true
       schema:
         $ref: '#/components/schemas/TaskId'
 
@@ -59,12 +68,8 @@ components:
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              input:
-                $ref: '#/components/schemas/Input'
-              pattern:
-                $ref: '#/components/schemas/Pattern'
+            $ref: '#/components/schemas/NewTask'
+
 
   responses:
     TaskCreatedResponse:
@@ -94,6 +99,13 @@ components:
             $ref: '#/components/schemas/ApiError'
 
   schemas:
+    NewTask:
+      type: object
+      properties:
+        input:
+          $ref: '#/components/schemas/Input'
+        pattern:
+          $ref: '#/components/schemas/Pattern'
     TaskCreated:
       type: object
       allOf:

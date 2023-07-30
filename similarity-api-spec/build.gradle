@@ -1,4 +1,54 @@
 plugins {
     id 'java'
+
+    id 'similarity.dependency-conventions'
+    alias libs.plugins.springBootDependencyManagement
+
+    id 'org.openapi.generator' version '5.2.1'
 }
 
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    implementation "io.springfox:springfox-boot-starter:3.0.0"
+}
+
+openApiGenerate {
+    generatorName = "spring"
+
+    inputSpec = "$projectDir/src/main/resources/api-v1.yaml"
+    outputDir = "$buildDir/generated/sources/openApiGenerator"
+
+    apiPackage = "com.github.siwonpawel.similarity.api.v1"
+    modelPackage = "com.github.siwonpawel.similarity.api.v1.model"
+
+    generateApiTests = false
+    generateModelTests = false
+
+
+    configOptions.set([
+            useSpringBoot3       : "true",
+            interfaceOnly        : "true",
+            performBeanValidation: "true",
+            skipDefaultInterface : "true",
+            useJakartaEe         : "true",
+            sourceFolder         : "",
+    ])
+
+    globalProperties.set([
+            models: '',
+            apis  : ''
+    ])
+}
+
+compileJava.dependsOn tasks.openApiGenerate
+processResources.dependsOn tasks.openApiGenerate
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ["$buildDir/generated/sources/openApiGenerator/src/main/java"]
+        }
+    }
+}
