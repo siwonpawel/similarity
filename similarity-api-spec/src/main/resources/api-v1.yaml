@@ -142,6 +142,8 @@ components:
           $ref: '#/components/schemas/Pattern'
         status:
           $ref: '#/components/schemas/Status'
+        progress:
+          $ref: '#/components/schemas/Progress'
         createdAt:
           $ref: '#/components/schemas/CreatedAt'
         modifiedAt:
@@ -161,8 +163,6 @@ components:
           $ref: '#/components/schemas/Status'
         createdAt:
           $ref: '#/components/schemas/CreatedAt'
-        modifiedAt:
-          $ref: '#/components/schemas/ModifiedAt'
     TaskId:
       type: string
       description: ID of the task
@@ -196,6 +196,11 @@ components:
         * CANCELLED - processing of the task was cancelled, finished gracefully without occurring errors
         * FAILED - processing of the task failed because of errors
       example: FINISHED
+    Progress:
+      type: integer
+      format: int32
+      description: Progress of the task
+      example: 100
     TaskResult:
       type: object
       properties:
